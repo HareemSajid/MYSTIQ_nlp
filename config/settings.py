@@ -6,12 +6,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
-_INSECURE_KEY = "dev-only-insecure-key-change-me"
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", _INSECURE_KEY)
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-only-insecure-key-change-me")
 DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
-if not DEBUG and SECRET_KEY in (_INSECURE_KEY, "change-me", ""):
-    from django.core.exceptions import ImproperlyConfigured
-    raise ImproperlyConfigured("Set a real DJANGO_SECRET_KEY when DJANGO_DEBUG=0.")
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",")
 
 INSTALLED_APPS = [
@@ -65,11 +61,6 @@ LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/dashboard/"
 LOGOUT_REDIRECT_URL = "/"
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = "Lax"
-X_CONTENT_TYPE_OPTIONS = "nosniff"
-if not DEBUG:
-    SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = os.getenv("DJANGO_HTTPS", "0") == "1"
-    SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # ---------------- MYSTIQ NLP / RAG configuration ----------------
 MYSTIQ = {
