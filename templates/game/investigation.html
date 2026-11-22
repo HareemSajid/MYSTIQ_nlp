@@ -1,31 +1,20 @@
 {% extends "base.html" %}{% load static mystiq %}{% block title %}Investigation — {{ case.title }}{% endblock %}
-{% block bodyattrs %}data-case="{{ case.number }}" data-uid="{{ user.id }}" data-docs="{{ documents|length }}"{% endblock %}
+{% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}
 {% block casebar %}{% include "partials_casebar.html" with stage="room" %}{% endblock %}
 {% block content %}
 <div class="roomhead"><div><p class="kicker">Case {{ case.number|roman }} · <b>Investigation room</b></p><h1>{{ case.title }}</h1></div>
  <div class="hud"><span class="chip">{% icon "hourglass" %} <span id="clock" data-start="{{ elapsed }}">{{ elapsed|mmss }}</span></span>
  <span class="chip" style="border-color:var(--i-leakage);color:var(--i-leakage)">{% icon "bulb" %} Hints <span id="hintcount">{{ hints_used }}</span>/{{ hints_total }}</span>
- <a class="btn" id="finalbtn" href="{% url 'deduction' case.number %}">Final deduction {% icon "gavel" %}</a></div></div>
-<section class="mission" id="mission" aria-label="Mission tracker">
- <div class="mtop"><div><p class="kicker"><b>Your mission</b> · follow the glowing step</p><h2 id="mnext">Next: Read the case board</h2></div>
- <div class="xp"><div class="xt"><span>Investigation</span><span id="xptxt">0%</span></div><div class="xpbar"><i id="xpfill"></i></div></div></div>
- <ol class="msteps">
-  <li data-step="overview"><span class="no">STEP 1</span><b>Case board</b><small>story &amp; goal</small></li>
-  <li data-step="suspects"><span class="no">STEP 2</span><b>Suspects</b><small>motives</small></li>
-  <li data-step="evidence"><span class="no">STEP 3</span><b>Evidence</b><small>0/3 documents</small></li>
-  <li data-step="statements"><span class="no">STEP 4</span><b>Statements</b><small>who is lying?</small></li>
-  <li data-step="timeline"><span class="no">STEP 5</span><b>Timeline</b><small>records vs claims</small></li>
-  <li data-step="interrogation"><span class="no">STEP 6</span><b>Interrogate</b><small>ask questions</small></li></ol></section>
-<div class="tip" id="tip"><span>💡 <b>New here?</b> Work through the 6 steps in order, then press <b>Final deduction</b>. Stuck? Ask Dr. Watson in the left menu.</span><button class="btn ghost small" id="tipclose">Got it</button></div>
+ <a class="btn small" href="{% url 'deduction' case.number %}">Final deduction {% icon "gavel" %}</a></div></div>
 <div class="room">
 <nav class="rail" role="tablist" id="tabs" aria-label="Investigation tools">
- <button class="tab" role="tab" data-tab="overview">{% icon "board" %} 1 · Case board<span class="tick">✓</span></button>
- <button class="tab" role="tab" data-tab="suspects">{% icon "users" %} 2 · Suspects <span class="n">{{ suspects|length }}</span><span class="tick">✓</span></button>
- <button class="tab" role="tab" data-tab="evidence">{% icon "file" %} 3 · Evidence <span class="n">{{ documents|length }}</span><span class="tick">✓</span></button>
- <button class="tab" role="tab" data-tab="statements">{% icon "stance" %} 4 · Statements <span class="n">{{ statements|length }}</span><span class="tick">✓</span></button>
- <button class="tab" role="tab" data-tab="timeline">{% icon "time" %} 5 · Timeline<span class="tick">✓</span></button>
- <button class="tab" role="tab" data-tab="interrogation">{% icon "chat" %} 6 · Interrogate<span class="tick">✓</span></button>
- <button class="tab" role="tab" data-tab="watson">{% icon "lamp" %} Ask Dr. Watson</button>
+ <button class="tab" role="tab" data-tab="overview">{% icon "board" %} Case board</button>
+ <button class="tab" role="tab" data-tab="suspects">{% icon "users" %} Suspects <span class="n">{{ suspects|length }}</span></button>
+ <button class="tab" role="tab" data-tab="evidence">{% icon "file" %} Evidence <span class="n">{{ documents|length }}</span></button>
+ <button class="tab" role="tab" data-tab="statements">{% icon "stance" %} Statements <span class="n">{{ statements|length }}</span></button>
+ <button class="tab" role="tab" data-tab="timeline">{% icon "time" %} Timeline</button>
+ <button class="tab" role="tab" data-tab="interrogation">{% icon "chat" %} Interrogation</button>
+ <button class="tab" role="tab" data-tab="watson">{% icon "lamp" %} Dr. Watson</button>
 </nav>
 <div>
 <section id="overview" class="tabpanel" role="tabpanel">
@@ -33,7 +22,8 @@
  <div class="grid g2"><div class="card"><p class="kicker">The briefing</p><div style="white-space:pre-line;font-size:1.05rem">{{ case.introduction }}</div></div>
  <div><div class="card"><p class="kicker">Objective</p><p style="font-family:var(--display);font-style:italic;font-size:1.5rem;line-height:1.25;margin:0">{{ case.objective }}</p></div>
  <div class="card" style="margin-top:var(--s4)"><p class="kicker">{% icon "notebook" %} Detective's notebook</p><textarea id="notebook" class="bignote" placeholder="Jot down theories, times, contradictions… (saved automatically)">{{ progress.notebook }}</textarea><div class="muted small" id="nbstatus" style="margin-top:6px">Saved to your casebook.</div></div></div></div>
- <details class="fold"><summary>Your 8 NLP instruments (optional reference)</summary><div class="grid g4" style="margin-top:var(--s4)">{% instruments as ins %}{% for key,name,tech,desc in ins %}<div class="ins-card" data-ins="{{ key }}" style="padding:var(--s4)"><div class="ico" style="width:36px;height:36px">{% icon key %}</div><div class="tech">{{ tech }}</div><h4 style="font-size:1.15rem">{{ name }}</h4><p style="font-size:.95rem">{{ desc }}</p></div>{% endfor %}</div></details>
+ <div class="sec-head" style="margin-top:var(--s7)"><div><p class="kicker">Your instruments</p><h3 style="margin:0">Eight NLP tools, one colour each</h3></div></div>
+ <div class="grid g4">{% instruments as ins %}{% for key,name,tech,desc in ins %}<div class="ins-card" data-ins="{{ key }}" style="padding:var(--s4)"><div class="ico" style="width:36px;height:36px">{% icon key %}</div><div class="tech">{{ tech }}</div><h4 style="font-size:1.15rem">{{ name }}</h4><p style="font-size:.88rem">{{ desc }}</p></div>{% endfor %}</div>
 </section>
 
 <section id="suspects" class="tabpanel" role="tabpanel">
@@ -44,7 +34,7 @@
 
 <section id="evidence" class="tabpanel" role="tabpanel" data-ins="retrieval">
  <div class="pane-title"><div><h2>Evidence room</h2><p>Open any document, or question the whole file by meaning.</p></div></div>
- <div class="grid g2" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="docgrid">{% for d in documents %}<div class="doc-row" data-dockey="{{ d.key }}"><div class="dico">{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}</div><div><b>{{ d.title }}</b><span class="m">{{ d.doc_type }} · {{ d.datetime_text }}{% if d.suspect %} · re: {{ d.suspect.name }}{% endif %} <span class="readb">✓ READ</span></span></div>
+ <div class="grid g2" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="docgrid">{% for d in documents %}<div class="doc-row"><div class="dico">{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}</div><div><b>{{ d.title }}</b><span class="m">{{ d.doc_type }} · {{ d.datetime_text }}{% if d.suspect %} · re: {{ d.suspect.name }}{% endif %}</span></div>
   <div class="row" style="gap:2px"><button class="star {% if d.key in important %}on{% endif %}" data-star="{{ d.key }}" aria-label="Mark as important" title="Mark as important">★</button><a class="btn small ghost" href="{% url 'evidence' case.number d.key %}">Open</a></div></div>{% endfor %}</div>
   <div class="card" style="--ins:var(--i-retrieval)"><p class="kicker" style="color:var(--i-retrieval)">{% icon "retrieval" %} Case search · semantic retrieval</p><p class="small muted">Ask in your own words. MYSTIQ retrieves the relevant evidence by meaning (not keywords) and answers with citations.</p>
   <div class="chat" id="askchat" aria-live="polite"></div>
@@ -86,4 +76,4 @@
 </section>
 </div></div>
 {% endblock %}
-{% block scripts %}<script>window.CASE_NO={{ case.number }};</script><script src="{% static 'js/mystiq.js' %}"></script><script src="{% static 'js/investigation.js' %}"></script><script src="{% static 'js/mission.js' %}"></script>{% endblock %}
+{% block scripts %}<script>window.CASE_NO={{ case.number }};</script><script src="{% static 'js/mystiq.js' %}"></script><script src="{% static 'js/investigation.js' %}"></script>{% endblock %}

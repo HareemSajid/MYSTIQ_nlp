@@ -51,10 +51,10 @@ const MQ = (() => {
     function show(id) {
       btns.forEach(b => b.setAttribute('aria-selected', b.dataset.tab === id));
       panels.forEach(p => p.classList.toggle('active', p.id === id));
-      history.replaceState(null, '', '#tab-' + id);
+      history.replaceState(null, '', '#' + id);
     }
     btns.forEach(b => b.addEventListener('click', () => show(b.dataset.tab)));
-    const want = (location.hash || '').replace(/^#(tab-)?/, ''); show(want && document.getElementById(want) ? want : btns[0].dataset.tab);
+    show((location.hash || '').slice(1) && document.getElementById(location.hash.slice(1)) ? location.hash.slice(1) : btns[0].dataset.tab);
     return show;
   }
   return {ico, stanceIcon, api, get, esc, cited, sources, addMsg, verdict, renderExplain, tabs};

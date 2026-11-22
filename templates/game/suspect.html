@@ -2,10 +2,10 @@
 {% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}
 {% block casebar %}{% include "partials_casebar.html" with stage="room" %}{% endblock %}
 {% block content %}
-<p class="mono small"><a href="{% url 'investigation' case.number %}#tab-suspects">← Back to the investigation room</a></p>
+<p class="mono small"><a href="{% url 'investigation' case.number %}#suspects">← Back to the investigation room</a></p>
 <div class="grid" style="grid-template-columns:340px minmax(0,1fr);gap:var(--s7);align-items:start">
 <div class="card center"><span class="pframe" style="margin:14px">{% portrait s 250 %}</span><h2 style="margin:var(--s5) 0 4px">{{ s.name }}</h2><div class="lbl">{{ s.role }} · age {{ s.age }}</div>
- <p style="margin-top:var(--s5)"><a class="btn" href="{% url 'investigation' case.number %}#tab-interrogation">Interrogate {% icon "arrow" %}</a></p></div>
+ <p style="margin-top:var(--s5)"><a class="btn" href="{% url 'investigation' case.number %}#interrogation">Interrogate {% icon "arrow" %}</a></p></div>
 <div><div class="grid g2" style="gap:var(--s5)"><div><p class="kicker">Background</p><p>{{ s.background }}</p></div><div><p class="kicker">Relationship with the victim</p><p>{{ s.relationship }}</p></div>
  <div><p class="kicker">Motive</p><p>{{ s.motive }}</p></div><div><p class="kicker">Known whereabouts</p><p>{{ s.whereabouts }}</p></div></div>
  <div class="sec-head" style="margin-top:var(--s6)"><h3 style="margin:0">Statements</h3></div>

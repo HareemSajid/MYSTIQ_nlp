@@ -1,8 +1,8 @@
 {% extends "base.html" %}{% load static mystiq %}{% block title %}{{ doc.title }}{% endblock %}
-{% block bodyattrs %}data-case="{{ case.number }}" data-uid="{{ user.id }}"{% endblock %}
+{% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}
 {% block casebar %}{% include "partials_casebar.html" with stage="room" %}{% endblock %}
 {% block content %}{% with k=doc.doc_type|dockind %}
-<p><a class="btn ghost small" href="{% url 'investigation' case.number %}#tab-evidence">← Back to the evidence room</a></p><ol id="doclist" hidden>{% for d in all_docs %}<li data-key="{{ d.key }}" data-url="{% url 'evidence' case.number d.key %}">{{ d.title|truncatechars:28 }}</li>{% endfor %}</ol>
+<p class="mono small"><a href="{% url 'investigation' case.number %}#evidence">← Back to the evidence room</a></p>
 <div class="viewer">
 <div><article class="sheet k-{{ k }}"><span class="tag">{{ doc.doc_type }}</span>
  <h2>{{ doc.title }}</h2>
@@ -10,12 +10,12 @@
  <div id="doctext"><pre>{{ doc.content }}</pre></div></article>
  <div class="toolbar"><button class="btn {% if important %}{% else %}ghost{% endif %}" id="imp">{% if important %}★ Marked important{% else %}☆ Mark as Important{% endif %}</button>
  <button class="btn ghost" id="analyse" data-ins="ner" style="--ins:var(--i-ner)">{% icon "ner" %} Show NLP analysis</button></div>
- <div id="analysis"></div><div class="docnav" id="docnav"></div></div>
+ <div id="analysis"></div></div>
 <aside class="card" style="--ins:var(--i-retrieval);border-top:3px solid var(--i-retrieval)"><p class="kicker" style="color:var(--i-retrieval)">{% icon "retrieval" %} Ask MYSTIQ about this evidence</p><p class="small muted">Answered from this document first, then the whole case.</p>
  <div class="chat" id="askchat" aria-live="polite"></div><div class="row ask"><input class="grow" type="text" id="askq" maxlength="500" placeholder="Who is mentioned here? What time does this record?"><button class="btn" id="askbtn">Ask</button></div>
  <p class="kicker" style="margin-top:var(--s6)">Other documents</p>{% for d in all_docs %}{% if d.key != doc.key %}<div class="doc-row" style="margin-bottom:6px;grid-template-columns:34px 1fr"><div class="dico" style="width:34px;height:34px">{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}</div><a href="{% url 'evidence' case.number d.key %}">{{ d.title }}</a></div>{% endif %}{% endfor %}</aside></div>
 {% endwith %}{% endblock %}
-{% block scripts %}<script>window.CASE_NO={{ case.number }};window.DOC_KEY="{{ doc.key }}";</script><script src="{% static 'js/mystiq.js' %}"></script><script src="{% static 'js/mission.js' %}"></script><script>
+{% block scripts %}<script>window.CASE_NO={{ case.number }};window.DOC_KEY="{{ doc.key }}";</script><script src="{% static 'js/mystiq.js' %}"></script><script>
 (()=>{const N=CASE_NO,$=s=>document.querySelector(s);
 $('#imp').addEventListener('click',async()=>{const r=await MQ.api(`/api/case/${N}/important/`,{doc_key:DOC_KEY});if(!r.error){$('#imp').textContent=r.important?'★ Marked important':'☆ Mark as Important';$('#imp').classList.toggle('ghost',!r.important)}});
 $('#analyse').addEventListener('click',async()=>{const out=$('#analysis');out.innerHTML='<div class="nlp" data-ins="ner"><span class="spinner"></span> Running NER, temporal extraction and coreference…</div>';
