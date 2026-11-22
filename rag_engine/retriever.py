@@ -51,6 +51,8 @@ class CaseRetriever:
             return False
         if kinds and c["kind"] not in kinds:
             return False
+        if suspect_key and c["audience"] == "public" and False:
+            return False
         return True
 
     def _cross_encoder(self):
@@ -67,12 +69,10 @@ class CaseRetriever:
 
     # -- main entry
     def retrieve(self, query, top_k=None, audiences=("public",), kinds=None, suspect_key=None, doc_key=None,
-                 hint_max=0, use_cache=True, mode="hybrid"):
-        if mode not in ("hybrid", "dense", "bm25"):
-            raise ValueError(f"unknown retrieval mode {mode!r}")
+                 hint_max=0, use_cache=True):
         top_k = top_k or settings.MYSTIQ["TOP_K"]
         key = (self.case_number, query.strip().lower(), top_k, tuple(sorted(audiences)), tuple(sorted(kinds or ())),
-               suspect_key, doc_key, hint_max, mode)
+               suspect_key, doc_key, hint_max)
         if use_cache and key in _cache:
             out = dict(_cache[key])
             out["cached"] = True
@@ -95,11 +95,8 @@ class CaseRetriever:
                 continue
             d = float(max(0.0, dense[i]))
             b = float(bm[i] / bm_max) if bm_max > 0 else 0.0
-            fused = {"hybrid": 0.6 * d + 0.4 * b, "dense": d, "bm25": b}[mode]
+            fused = 0.6 * d + 0.4 * b
             bonus = 0.0
-            if mode != "hybrid":      # ablation modes: pure single-signal ranking, no heuristic bonuses
-                cand.append({"chunk": c, "dense": d, "bm25": float(bm[i]), "bm25_norm": b, "fused": fused, "score": fused})
-                continue
             hits = len(set(und["people"]) & (set(c["persons"]) | ({c["suspect_key"]} if c["suspect_key"] else set())))
             bonus += min(0.12, 0.06 * hits)
             for t in und["times"]:
@@ -140,7 +137,7 @@ class CaseRetriever:
                "latency_ms": round((time.perf_counter() - t0) * 1000, 2),
                "stages_ms": {"understand": round((t_understand - t0) * 1000, 2), "dense": round((t_dense - t_understand) * 1000, 2),
                              "bm25": round((t_bm - t_dense) * 1000, 2), "rerank": round((t_rr - t_bm) * 1000, 2)},
-               "cached": False, "mode": mode}
+               "cached": False}
         if use_cache:
             if len(_cache) >= _CACHE_MAX:
                 _cache.pop(next(iter(_cache)))
