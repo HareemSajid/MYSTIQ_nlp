@@ -1,0 +1,459 @@
+{
+ "environment": {
+  "embedder": "local-lsa-tfidf",
+  "nli": {
+   "model": null,
+   "loaded": false,
+   "fallback_reason": "ModuleNotFoundError: No module named 'sentence_transformers'"
+  },
+  "spacy": "en_core_web_sm",
+  "gemini_used": false
+ },
+ "retrieval": {
+  "n_queries": 32,
+  "precision@3": 0.385,
+  "recall@3": 0.859,
+  "mrr": 0.826,
+  "hit@1": 0.719,
+  "hit@5": 1,
+  "case_isolation_ok": true,
+  "off_topic_flagged_insufficient": "5/5",
+  "legit_queries_wrongly_flagged_insufficient": "0/32",
+  "latency_ms": {
+   "mean": 21.3,
+   "p50": 20.8,
+   "p95": 32.3
+  },
+  "failures": [
+   {
+    "query": "Who last held the emerald before it was locked away?",
+    "relevant": [
+     "lord_note"
+    ],
+    "got": [
+     "",
+     "eleanor_statement",
+     "study_report",
+     "lord_note",
+     "message"
+    ]
+   },
+   {
+    "query": "Who kept asking where Blackwood would be on Friday?",
+    "relevant": [
+     "diary"
+    ],
+    "got": [
+     "helen_statement",
+     "delivery_record",
+     "police_notice",
+     "diary",
+     ""
+    ]
+   },
+   {
+    "query": "Who sat at the foot of the table?",
+    "relevant": [
+     "seating"
+    ],
+    "got": [
+     "hale_statement",
+     "mills_statement",
+     "service_record",
+     "seating",
+     ""
+    ]
+   }
+  ],
+  "embedder": "local-lsa-tfidf"
+ },
+ "ner": {
+  "mystiq (spaCy + case lexicon + temporal)": {
+   "precision": 0.963,
+   "recall": 0.981,
+   "f1": 0.972,
+   "tp": 52,
+   "fp": 2,
+   "fn": 1,
+   "latency_ms_mean": 5.0,
+   "per_label_recall": {
+    "DATE": "3/3",
+    "LOCATION": "11/11",
+    "OBJECT": "9/9",
+    "ORGANISATION": "0/1",
+    "OTHER": "1/1",
+    "PERSON": "17/17",
+    "TIME": "11/11"
+   }
+  },
+  "baseline (spaCy only)": {
+   "precision": 0.706,
+   "recall": 0.453,
+   "f1": 0.552,
+   "tp": 24,
+   "fp": 10,
+   "fn": 29,
+   "latency_ms_mean": 4.1,
+   "per_label_recall": {
+    "DATE": "3/3",
+    "LOCATION": "0/11",
+    "OBJECT": "0/9",
+    "ORGANISATION": "0/1",
+    "OTHER": "1/1",
+    "PERSON": "9/17",
+    "TIME": "11/11"
+   }
+  }
+ },
+ "temporal": {
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "tp": 28,
+  "fp": 0,
+  "fn": 0,
+  "ambiguity_flag_accuracy": "2/2",
+  "n": 27,
+  "latency_ms_mean": 0.04,
+  "errors": []
+ },
+ "coreference": {
+  "accuracy": 0.917,
+  "correct": 11,
+  "total": 12,
+  "errors": [
+   {
+    "text": "Dr. Moore saw Carter in the library. He was putting away the case.",
+    "pronoun": "He",
+    "expected": "carter",
+    "got": "moore"
+   }
+  ]
+ },
+ "nli": {
+  "dev": {
+   "n": 13,
+   "accuracy": 1.0,
+   "per_class": {
+    "contradiction": {
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "tp": 8,
+     "fp": 0,
+     "fn": 0
+    },
+    "entailment": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "neutral": {
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "tp": 5,
+     "fp": 0,
+     "fn": 0
+    }
+   },
+   "confusion_gold_by_pred": {
+    "contradiction": {
+     "contradiction": 8,
+     "entailment": 0,
+     "neutral": 0
+    },
+    "entailment": {
+     "contradiction": 0,
+     "entailment": 0,
+     "neutral": 0
+    },
+    "neutral": {
+     "contradiction": 0,
+     "entailment": 0,
+     "neutral": 5
+    }
+   },
+   "false_contradictions": 0,
+   "errors": []
+  },
+  "fresh": {
+   "n": 15,
+   "accuracy": 1.0,
+   "per_class": {
+    "contradiction": {
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "tp": 6,
+     "fp": 0,
+     "fn": 0
+    },
+    "entailment": {
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "tp": 1,
+     "fp": 0,
+     "fn": 0
+    },
+    "neutral": {
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "tp": 8,
+     "fp": 0,
+     "fn": 0
+    }
+   },
+   "confusion_gold_by_pred": {
+    "contradiction": {
+     "contradiction": 6,
+     "entailment": 0,
+     "neutral": 0
+    },
+    "entailment": {
+     "contradiction": 0,
+     "entailment": 1,
+     "neutral": 0
+    },
+    "neutral": {
+     "contradiction": 0,
+     "entailment": 0,
+     "neutral": 8
+    }
+   },
+   "false_contradictions": 0,
+   "errors": []
+  },
+  "heldout": {
+   "n": 12,
+   "accuracy": 0.833,
+   "per_class": {
+    "contradiction": {
+     "precision": 1.0,
+     "recall": 0.8,
+     "f1": 0.889,
+     "tp": 4,
+     "fp": 0,
+     "fn": 1
+    },
+    "entailment": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 1
+    },
+    "neutral": {
+     "precision": 0.75,
+     "recall": 1.0,
+     "f1": 0.857,
+     "tp": 6,
+     "fp": 2,
+     "fn": 0
+    }
+   },
+   "confusion_gold_by_pred": {
+    "contradiction": {
+     "contradiction": 4,
+     "entailment": 0,
+     "neutral": 1
+    },
+    "entailment": {
+     "contradiction": 0,
+     "entailment": 0,
+     "neutral": 1
+    },
+    "neutral": {
+     "contradiction": 0,
+     "entailment": 0,
+     "neutral": 6
+    }
+   },
+   "false_contradictions": 0,
+   "errors": [
+    {
+     "premise": "I was in the estate office until ten.",
+     "hypothesis": "Miss Grey was seen in the estate office at 9:30 PM.",
+     "gold": "entailment",
+     "pred": "neutral",
+     "finding": "no_relation"
+    },
+    {
+     "premise": "I never set foot in the workshop.",
+     "hypothesis": "Captain Finch entered the workshop at 8:20 PM.",
+     "gold": "contradiction",
+     "pred": "neutral",
+     "finding": "no_relation"
+    }
+   ]
+  },
+  "all": {
+   "n": 40,
+   "accuracy": 0.95,
+   "per_class": {
+    "contradiction": {
+     "precision": 1.0,
+     "recall": 0.947,
+     "f1": 0.973,
+     "tp": 18,
+     "fp": 0,
+     "fn": 1
+    },
+    "entailment": {
+     "precision": 1.0,
+     "recall": 0.5,
+     "f1": 0.667,
+     "tp": 1,
+     "fp": 0,
+     "fn": 1
+    },
+    "neutral": {
+     "precision": 0.905,
+     "recall": 1.0,
+     "f1": 0.95,
+     "tp": 19,
+     "fp": 2,
+     "fn": 0
+    }
+   },
+   "confusion_gold_by_pred": {
+    "contradiction": {
+     "contradiction": 18,
+     "entailment": 0,
+     "neutral": 1
+    },
+    "entailment": {
+     "contradiction": 0,
+     "entailment": 1,
+     "neutral": 1
+    },
+    "neutral": {
+     "contradiction": 0,
+     "entailment": 0,
+     "neutral": 19
+    }
+   },
+   "false_contradictions": 0,
+   "errors": [
+    {
+     "premise": "I was in the estate office until ten.",
+     "hypothesis": "Miss Grey was seen in the estate office at 9:30 PM.",
+     "gold": "entailment",
+     "pred": "neutral",
+     "finding": "no_relation"
+    },
+    {
+     "premise": "I never set foot in the workshop.",
+     "hypothesis": "Captain Finch entered the workshop at 8:20 PM.",
+     "gold": "contradiction",
+     "pred": "neutral",
+     "finding": "no_relation"
+    }
+   ]
+  },
+  "backend": "symbolic-frames+gating",
+  "latency_ms_mean": 11.4,
+  "latency_ms_p95": 30.2
+ },
+ "answer_evaluation": {
+  "accuracy": 1.0,
+  "n": 14,
+  "rows": [
+   {
+    "case": 1,
+    "expected": "good",
+    "pred": "good",
+    "fraction": 1.0
+   },
+   {
+    "case": 1,
+    "expected": "poor",
+    "pred": "poor",
+    "fraction": 0.0
+   },
+   {
+    "case": 2,
+    "expected": "good",
+    "pred": "good",
+    "fraction": 1.0
+   },
+   {
+    "case": 2,
+    "expected": "poor",
+    "pred": "poor",
+    "fraction": 0.2
+   },
+   {
+    "case": 3,
+    "expected": "good",
+    "pred": "good",
+    "fraction": 1.0
+   },
+   {
+    "case": 3,
+    "expected": "poor",
+    "pred": "poor",
+    "fraction": 0.2
+   },
+   {
+    "case": 4,
+    "expected": "good",
+    "pred": "good",
+    "fraction": 1.0
+   },
+   {
+    "case": 4,
+    "expected": "poor",
+    "pred": "poor",
+    "fraction": 0.0
+   },
+   {
+    "case": 5,
+    "expected": "good",
+    "pred": "good",
+    "fraction": 1.0
+   },
+   {
+    "case": 5,
+    "expected": "poor",
+    "pred": "poor",
+    "fraction": 0.0
+   },
+   {
+    "case": 6,
+    "expected": "good",
+    "pred": "good",
+    "fraction": 1.0
+   },
+   {
+    "case": 6,
+    "expected": "poor",
+    "pred": "poor",
+    "fraction": 0.0
+   },
+   {
+    "case": 7,
+    "expected": "good",
+    "pred": "good",
+    "fraction": 1.0
+   },
+   {
+    "case": 7,
+    "expected": "poor",
+    "pred": "poor",
+    "fraction": 0.0
+   }
+  ]
+ },
+ "end_to_end_latency": {
+  "ask_ms_mean": 130.1,
+  "interrogate_ms_mean": 14.4
+ },
+ "runtime_seconds": 6.0
+}

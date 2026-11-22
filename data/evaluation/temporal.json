@@ -1,0 +1,217 @@
+[
+ {
+  "text": "9:20 PM",
+  "expected": [
+   "21:20"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "half past nine in the evening",
+  "expected": [
+   "21:30"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "a quarter to ten at night",
+  "expected": [
+   "21:45"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "twenty past eight in the evening",
+  "expected": [
+   "20:20"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "five minutes to midnight",
+  "expected": [
+   "23:55"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "ten to ten that evening",
+  "expected": [
+   "21:50"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "6:30 AM",
+  "expected": [
+   "06:30"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "nine o'clock in the evening",
+  "expected": [
+   "21:00"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "at about twenty to nine at dinner",
+  "expected": [
+   "20:40"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "12:20 AM",
+  "expected": [
+   "00:20"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "noon",
+  "expected": [
+   "12:00"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "midnight",
+  "expected": [
+   "00:00"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "a quarter past seven in the evening",
+  "expected": [
+   "19:15"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "twenty-five past ten at night",
+  "expected": [
+   "22:25"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "nine twenty in the evening",
+  "expected": [
+   "21:20"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "Come to the gate at ten",
+  "expected": [
+   "22:00"
+  ],
+  "ambiguous": true,
+  "context": ""
+ },
+ {
+  "text": "between 9:30 PM and 9:55 PM",
+  "expected": [
+   "21:30",
+   "21:55"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "He left at 9.15 PM",
+  "expected": [
+   "21:15"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "By half past six the next morning he had left",
+  "expected": [
+   "06:30"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "Four tons of coal were delivered",
+  "expected": [],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "It cost ten pounds",
+  "expected": [],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "from 5:45 PM to 5:55 PM",
+  "expected": [
+   "17:45",
+   "17:55"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "at twenty-eight minutes past seven in the evening",
+  "expected": [
+   "19:28"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "The 7:40 PM train reached Vauxhall at 7:46 PM",
+  "expected": [
+   "19:40",
+   "19:46"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "8:15 AM milk and bread",
+  "expected": [
+   "08:15"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "a quarter past four in the afternoon",
+  "expected": [
+   "16:15"
+  ],
+  "ambiguous": null,
+  "context": ""
+ },
+ {
+  "text": "He arrived at nine",
+  "expected": [
+   "21:00"
+  ],
+  "ambiguous": true,
+  "context": ""
+ }
+]

@@ -1,0 +1,72 @@
+[
+ {
+  "case": 1,
+  "explanation": "The caretaker Whitmore said he never left the hall or touched the key cabinet, but Dunmore's ledger shows him taking the spare study key at 8:20 and Clara found the hall empty at half past eight. Eleanor only assumed Richard handled the emerald.",
+  "expected": "good"
+ },
+ {
+  "case": 1,
+  "explanation": "Eleanor is in debt and wanted the emerald so she took it from the study.",
+  "expected": "poor"
+ },
+ {
+  "case": 2,
+  "explanation": "Blake claimed ignorance of the letter yet spoke of Wapping Stairs at first light, details the police withheld and only the letter contained. Blackwood told his solicitor he had told no one. The grey ledger was public from the newspaper interview so Reed's knowledge proves nothing.",
+  "expected": "good"
+ },
+ {
+  "case": 2,
+  "explanation": "Reed the journalist knew about the ledger so he wrote the letter.",
+  "expected": "poor"
+ },
+ {
+  "case": 3,
+  "explanation": "Alice Grey said she heard the tower clock strike ten, but the clock record shows it stopped at 9:10. The log shows her entering at 8:40 with no exit so she hid in the alcove when Carter locked up. Moore saw Carter on Thursday, a different day, so that is no contradiction.",
+  "expected": "good"
+ },
+ {
+  "case": 3,
+  "explanation": "William Carter lied about leaving at nine because Henry Moore saw him at 9:20.",
+  "expected": "poor"
+ },
+ {
+  "case": 4,
+  "explanation": "Crane's note speaks of the man in the corner by the left-hand door, and the guard's seating plan puts Bennett there. The stout man in the brown overcoat who helped him off at Vauxhall and returned alone at the whistle is the same man, so his claim of never leaving his seat is false. Mills was at the rear, so not seeing him return proves nothing.",
+  "expected": "good"
+ },
+ {
+  "case": 4,
+  "explanation": "Emily Foster was beside Crane and she pushed him off the train because she inherits.",
+  "expected": "poor"
+ },
+ {
+  "case": 5,
+  "explanation": "Mary Collins said she never touched his key again, which is literally true but hides the second key Pemberton had cut for her. He told Finch he was engaged over a matter refused an hour ago, which fits her refusal at seven rather than Stone at half past five. A woman's voice was heard and the clock stopped at 8:47.",
+  "expected": "good"
+ },
+ {
+  "case": 5,
+  "explanation": "Frederick Stone offered money for the design and is a rival so he must have done it.",
+  "expected": "poor"
+ },
+ {
+  "case": 6,
+  "explanation": "The seating plan puts Mills at the foot of the table, and the footman saw the gentleman from the foot rise to the sideboard at 9:02. Susan says Mills carried the cup, so his claim never to have left his chair or gone near the sideboard is false. Lady Margaret was mistaken about Hale, and the telegram shows his motive.",
+  "expected": "good"
+ },
+ {
+  "case": 6,
+  "explanation": "Hale owes Sir Lucian money so he poisoned the cup before the toast.",
+  "expected": "poor"
+ },
+ {
+  "case": 7,
+  "explanation": "The letter calls it a cabinet of curiosities, a phrase the diary shows is Mrs. Reed's. She wrote that she returned the key at 4:30 but the cabinet was locked and Ford away, so she kept it. A veiled lady signed for the coal at the garden door and only Reed wears a veil.",
+  "expected": "good"
+ },
+ {
+  "case": 7,
+  "explanation": "Arthur Black wanted the Lisbon sale and the letter names him so he kidnapped Hargreave.",
+  "expected": "poor"
+ }
+]

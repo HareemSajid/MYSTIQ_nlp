@@ -1,0 +1,362 @@
+[
+ {
+  "case": 1,
+  "premise": "I took up my post in the front hall at eight o'clock when dinner was announced. I remained at that post until half past nine.",
+  "premise_speaker": "whitmore",
+  "hypothesis": "At about half past eight I left the dining room for the hall to fetch my shawl from the cloakroom. I called twice for a footman, but the hall was empty and nobody was at the front door.",
+  "hypothesis_speaker": "clara",
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 1,
+  "premise": "I never touched the key cabinet that evening and I never entered the study.",
+  "premise_speaker": "whitmore",
+  "hypothesis": "8:20 PM \u2014 Cabinet opened by Mr. Whitmore. Spare Study key taken out by him.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 1,
+  "premise": "I assumed Richard had returned the emerald to its box before we left the study, since he was standing nearest the case.",
+  "premise_speaker": "eleanor",
+  "hypothesis": "I never said that I had touched the emerald, and I did not.",
+  "hypothesis_speaker": "richard",
+  "gold": "neutral",
+  "set": "dev"
+ },
+ {
+  "case": 1,
+  "premise": "I assumed Richard had returned the emerald to its box before we left the study.",
+  "premise_speaker": "eleanor",
+  "hypothesis": "I held it in my own hand throughout, and no one else handled the stone.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 3,
+  "premise": "I left at 9:00 PM and locked the door from the outside.",
+  "premise_speaker": "carter",
+  "hypothesis": "On Thursday evening I saw William Carter inside the library at about twenty past nine, putting away the Psalter case.",
+  "hypothesis_speaker": "moore",
+  "gold": "neutral",
+  "set": "dev"
+ },
+ {
+  "case": 3,
+  "premise": "I left at 9:00 PM and locked the door from the outside on Saturday.",
+  "premise_speaker": "carter",
+  "hypothesis": "On Saturday evening I saw William Carter inside the library at about twenty past nine.",
+  "hypothesis_speaker": "moore",
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 3,
+  "premise": "I heard the tower clock strike ten while I was sealing the last envelope.",
+  "premise_speaker": "grey",
+  "hypothesis": "10:25 PM: clock found stopped at 9:10. The weight cord had frayed through. A stopped clock does not strike.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 4,
+  "premise": "I never left my seat between Waterloo and Clapham Junction.",
+  "premise_speaker": "bennett",
+  "hypothesis": "At Vauxhall the stout gentleman by the left-hand door stood up, took the old gentleman's arm, and stepped down with him.",
+  "hypothesis_speaker": "shaw",
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 4,
+  "premise": "I did not see the gentleman in the brown overcoat get back on the train.",
+  "premise_speaker": "mills",
+  "hypothesis": "At the whistle the stout gentleman came back alone and sat down.",
+  "hypothesis_speaker": "shaw",
+  "gold": "neutral",
+  "set": "dev"
+ },
+ {
+  "case": 5,
+  "premise": "I locked the shop at seven o'clock and handed Mr. Pemberton his key, as I always do. After that I never touched his key again.",
+  "premise_speaker": "mary",
+  "hypothesis": "12 Feb. \u2014 Had a second key cut for Mary, who grumbles at waiting on the step.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "dev"
+ },
+ {
+  "case": 6,
+  "premise": "I never rose from my chair until Sir Lucian was taken ill, and I did not go near the sideboard or touch the cup.",
+  "premise_speaker": "mills",
+  "hypothesis": "9:02 PM \u2014 Tilling notes that the gentleman at the foot of the table rises and crosses to the sideboard.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 6,
+  "premise": "I arrived at half past seven. At about five past nine I saw Mr. Hale carry the loving cup to Sir Lucian for the toast.",
+  "premise_speaker": "margaret",
+  "hypothesis": "The loving cup was carried to Sir Lucian by the gentleman at the foot of the table, whom I had not met before that evening.",
+  "hypothesis_speaker": "hale",
+  "gold": "contradiction",
+  "set": "dev"
+ },
+ {
+  "case": 2,
+  "premise": "I heard nothing of any letter until you told me on Saturday.",
+  "premise_speaker": "blake",
+  "hypothesis": "I know nothing about the weather.",
+  "hypothesis_speaker": "margaret",
+  "gold": "neutral",
+  "set": "dev"
+ },
+ {
+  "case": 3,
+  "premise": "I left the library at 9:00 PM on Saturday.",
+  "premise_speaker": "carter",
+  "hypothesis": "On Saturday I saw William Carter inside the library at 9:20 PM.",
+  "hypothesis_speaker": "moore",
+  "gold": "contradiction",
+  "set": "fresh"
+ },
+ {
+  "case": 3,
+  "premise": "I left the library at 9:00 PM on Saturday.",
+  "premise_speaker": "carter",
+  "hypothesis": "On Thursday I saw William Carter inside the library at 9:20 PM.",
+  "hypothesis_speaker": "moore",
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 1,
+  "premise": "I was at my post in the front hall until half past nine.",
+  "premise_speaker": "whitmore",
+  "hypothesis": "The hall was empty at twenty to nine.",
+  "hypothesis_speaker": "clara",
+  "gold": "contradiction",
+  "set": "fresh"
+ },
+ {
+  "case": 1,
+  "premise": "I was in the smoking room at twenty to nine.",
+  "premise_speaker": "richard",
+  "hypothesis": "I like roast beef.",
+  "hypothesis_speaker": "eleanor",
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 4,
+  "premise": "I never left my seat.",
+  "premise_speaker": "bennett",
+  "hypothesis": "I saw Mr. Bennett step down at Vauxhall.",
+  "hypothesis_speaker": "shaw",
+  "gold": "contradiction",
+  "set": "fresh"
+ },
+ {
+  "case": 6,
+  "premise": "I did not go near the sideboard.",
+  "premise_speaker": "mills",
+  "hypothesis": "Mr. Mills was at the sideboard at 9:02 PM.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "fresh"
+ },
+ {
+  "case": 6,
+  "premise": "I did not go near the sideboard.",
+  "premise_speaker": "hale",
+  "hypothesis": "Mr. Mills was at the sideboard at 9:02 PM.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 5,
+  "premise": "I did not see Mary leave.",
+  "premise_speaker": "oliver",
+  "hypothesis": "Mary left at seven.",
+  "hypothesis_speaker": "mary",
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 2,
+  "premise": "I did not see the letter.",
+  "premise_speaker": "helen",
+  "hypothesis": "The letter was delivered at 11:55 PM.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 7,
+  "premise": "I was at the club until half past ten.",
+  "premise_speaker": "black",
+  "hypothesis": "Mr. Black was seen at the garden door at ten.",
+  "hypothesis_speaker": "ford",
+  "gold": "contradiction",
+  "set": "fresh"
+ },
+ {
+  "case": 1,
+  "premise": "I thought Richard had the emerald.",
+  "premise_speaker": "eleanor",
+  "hypothesis": "Richard never touched the emerald.",
+  "hypothesis_speaker": "richard",
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 3,
+  "premise": "I heard the stable clock strike ten.",
+  "premise_speaker": "grey",
+  "hypothesis": "The tower clock stopped at 9:10.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 5,
+  "premise": "I left at half past six.",
+  "premise_speaker": "oliver",
+  "hypothesis": "Oliver left at half past six.",
+  "hypothesis_speaker": null,
+  "gold": "entailment",
+  "set": "fresh"
+ },
+ {
+  "case": 4,
+  "premise": "The train arrived at Vauxhall at 7:46 PM.",
+  "premise_speaker": null,
+  "hypothesis": "The train reached Clapham Junction at 7:58 PM.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "fresh"
+ },
+ {
+  "case": 1,
+  "premise": "I remained in the hall from eight until half past nine.",
+  "premise_speaker": "whitmore",
+  "hypothesis": "Nobody was in the hall at half past eight.",
+  "hypothesis_speaker": "clara",
+  "gold": "contradiction",
+  "set": "fresh"
+ },
+ {
+  "case": 1,
+  "premise": "I never entered the study.",
+  "premise_speaker": "whitmore",
+  "hypothesis": "At 8:25 PM Mr. Whitmore entered the study.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "heldout"
+ },
+ {
+  "case": 5,
+  "premise": "I did not touch the design.",
+  "premise_speaker": "oliver",
+  "hypothesis": "The design was found missing at 9:30 PM.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "heldout"
+ },
+ {
+  "case": 3,
+  "premise": "I was in the estate office until ten.",
+  "premise_speaker": "grey",
+  "hypothesis": "Miss Grey was seen in the library at 9:30 PM.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "heldout"
+ },
+ {
+  "case": 3,
+  "premise": "I was in the estate office until ten.",
+  "premise_speaker": "grey",
+  "hypothesis": "Miss Grey was seen in the estate office at 9:30 PM.",
+  "hypothesis_speaker": null,
+  "gold": "entailment",
+  "set": "heldout"
+ },
+ {
+  "case": 6,
+  "premise": "Mr. Hale remained in his chair.",
+  "premise_speaker": null,
+  "hypothesis": "Susan filled the loving cup at nine.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "heldout"
+ },
+ {
+  "case": 4,
+  "premise": "I sat by the left-hand door.",
+  "premise_speaker": "bennett",
+  "hypothesis": "I sat opposite the left-hand door.",
+  "hypothesis_speaker": "shaw",
+  "gold": "neutral",
+  "set": "heldout"
+ },
+ {
+  "case": 7,
+  "premise": "I did not see Mrs. Reed.",
+  "premise_speaker": "white",
+  "hypothesis": "Mrs. Reed left the house at 5:10 PM.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "heldout"
+ },
+ {
+  "case": 2,
+  "premise": "I was at home in Chelsea on Thursday.",
+  "premise_speaker": "margaret",
+  "hypothesis": "On Friday I arrived at the office.",
+  "hypothesis_speaker": "margaret",
+  "gold": "neutral",
+  "set": "heldout"
+ },
+ {
+  "case": 5,
+  "premise": "I never set foot in the workshop.",
+  "premise_speaker": "finch",
+  "hypothesis": "Captain Finch entered the workshop at 8:20 PM.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "heldout"
+ },
+ {
+  "case": 1,
+  "premise": "The hall was empty at half past eight.",
+  "premise_speaker": "clara",
+  "hypothesis": "The dining room was full at half past eight.",
+  "hypothesis_speaker": null,
+  "gold": "neutral",
+  "set": "heldout"
+ },
+ {
+  "case": 6,
+  "premise": "Mr. Mills rose from his chair at 9:02 PM.",
+  "premise_speaker": null,
+  "hypothesis": "I never rose from my chair.",
+  "hypothesis_speaker": "mills",
+  "gold": "contradiction",
+  "set": "heldout"
+ },
+ {
+  "case": 7,
+  "premise": "I heard the clock strike nine.",
+  "premise_speaker": "ford",
+  "hypothesis": "The grandfather clock stopped at 8:00 PM.",
+  "hypothesis_speaker": null,
+  "gold": "contradiction",
+  "set": "heldout"
+ }
+]

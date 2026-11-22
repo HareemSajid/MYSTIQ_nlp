@@ -1,0 +1,304 @@
+[
+ {
+  "case": 1,
+  "text": "Lord Ashford showed the emerald to Eleanor in the study at a quarter past seven.",
+  "entities": [
+   [
+    "Lord Ashford",
+    "PERSON"
+   ],
+   [
+    "emerald",
+    "OBJECT"
+   ],
+   [
+    "Eleanor",
+    "PERSON"
+   ],
+   [
+    "study",
+    "LOCATION"
+   ],
+   [
+    "a quarter past seven",
+    "TIME"
+   ]
+  ]
+ },
+ {
+  "case": 1,
+  "text": "Mr. Whitmore removed the spare key from the key cabinet in the pantry.",
+  "entities": [
+   [
+    "Mr. Whitmore",
+    "PERSON"
+   ],
+   [
+    "spare key",
+    "OBJECT"
+   ],
+   [
+    "key cabinet",
+    "OBJECT"
+   ],
+   [
+    "pantry",
+    "LOCATION"
+   ]
+  ]
+ },
+ {
+  "case": 1,
+  "text": "Miss Bennett found the hall empty at 8:30 PM on Thursday.",
+  "entities": [
+   [
+    "Miss Bennett",
+    "PERSON"
+   ],
+   [
+    "hall",
+    "LOCATION"
+   ],
+   [
+    "8:30 PM",
+    "TIME"
+   ],
+   [
+    "Thursday",
+    "DATE"
+   ]
+  ]
+ },
+ {
+  "case": 2,
+  "text": "The letter told Mr. Blackwood to carry the grey ledger to Wapping Stairs at first light.",
+  "entities": [
+   [
+    "letter",
+    "OBJECT"
+   ],
+   [
+    "Mr. Blackwood",
+    "PERSON"
+   ],
+   [
+    "grey ledger",
+    "OBJECT"
+   ],
+   [
+    "Wapping Stairs",
+    "LOCATION"
+   ],
+   [
+    "first light",
+    "TIME"
+   ]
+  ]
+ },
+ {
+  "case": 2,
+  "text": "Thomas Reed interviewed Edward Blackwood for the Evening Courier on Tuesday.",
+  "entities": [
+   [
+    "Thomas Reed",
+    "PERSON"
+   ],
+   [
+    "Edward Blackwood",
+    "PERSON"
+   ],
+   [
+    "Evening Courier",
+    "ORGANISATION"
+   ],
+   [
+    "Tuesday",
+    "DATE"
+   ]
+  ]
+ },
+ {
+  "case": 3,
+  "text": "Dr. Moore left the library at twenty past eight and played billiards.",
+  "entities": [
+   [
+    "Dr. Moore",
+    "PERSON"
+   ],
+   [
+    "library",
+    "LOCATION"
+   ],
+   [
+    "twenty past eight",
+    "TIME"
+   ]
+  ]
+ },
+ {
+  "case": 3,
+  "text": "Samuel Price found the tower clock stopped at ten past nine.",
+  "entities": [
+   [
+    "Samuel Price",
+    "PERSON"
+   ],
+   [
+    "tower clock",
+    "OBJECT"
+   ],
+   [
+    "ten past nine",
+    "TIME"
+   ]
+  ]
+ },
+ {
+  "case": 4,
+  "text": "At Vauxhall the stout gentleman stepped down with Mr. Crane at 7:46 PM.",
+  "entities": [
+   [
+    "Vauxhall",
+    "LOCATION"
+   ],
+   [
+    "Mr. Crane",
+    "PERSON"
+   ],
+   [
+    "7:46 PM",
+    "TIME"
+   ],
+   [
+    "the stout gentleman",
+    "PERSON"
+   ]
+  ]
+ },
+ {
+  "case": 4,
+  "text": "His black valise stayed on the rack in Compartment C until Clapham Junction.",
+  "entities": [
+   [
+    "valise",
+    "OBJECT"
+   ],
+   [
+    "Compartment C",
+    "LOCATION"
+   ],
+   [
+    "Clapham Junction",
+    "LOCATION"
+   ]
+  ]
+ },
+ {
+  "case": 5,
+  "text": "Josiah Pemberton refused Mary Collins again at 7:05 PM in the workshop.",
+  "entities": [
+   [
+    "Josiah Pemberton",
+    "PERSON"
+   ],
+   [
+    "Mary Collins",
+    "PERSON"
+   ],
+   [
+    "7:05 PM",
+    "TIME"
+   ],
+   [
+    "workshop",
+    "LOCATION"
+   ]
+  ]
+ },
+ {
+  "case": 5,
+  "text": "Frederick Stone offered five hundred pounds for the escapement.",
+  "entities": [
+   [
+    "Frederick Stone",
+    "PERSON"
+   ],
+   [
+    "escapement",
+    "OBJECT"
+   ],
+   [
+    "five hundred pounds",
+    "OTHER"
+   ]
+  ]
+ },
+ {
+  "case": 6,
+  "text": "Susan Clarke filled the loving cup at nine and left it on the sideboard.",
+  "entities": [
+   [
+    "Susan Clarke",
+    "PERSON"
+   ],
+   [
+    "loving cup",
+    "OBJECT"
+   ],
+   [
+    "nine",
+    "TIME"
+   ],
+   [
+    "sideboard",
+    "LOCATION"
+   ]
+  ]
+ },
+ {
+  "case": 6,
+  "text": "Lady Margaret Hartwell arrived at Ravenscroft House on Saturday.",
+  "entities": [
+   [
+    "Lady Margaret Hartwell",
+    "PERSON"
+   ],
+   [
+    "Saturday",
+    "DATE"
+   ]
+  ]
+ },
+ {
+  "case": 7,
+  "text": "Mrs. Reed signed the register and left by the front door at ten past five.",
+  "entities": [
+   [
+    "Mrs. Reed",
+    "PERSON"
+   ],
+   [
+    "ten past five",
+    "TIME"
+   ]
+  ]
+ },
+ {
+  "case": 7,
+  "text": "The coal was delivered by the garden door between 9:30 PM and 9:55 PM.",
+  "entities": [
+   [
+    "garden door",
+    "LOCATION"
+   ],
+   [
+    "9:30 PM",
+    "TIME"
+   ],
+   [
+    "9:55 PM",
+    "TIME"
+   ]
+  ]
+ }
+]

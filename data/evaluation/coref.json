@@ -1,0 +1,120 @@
+[
+ {
+  "case": 1,
+  "text": "Mr. Whitmore entered the hall. He locked the door.",
+  "speaker": null,
+  "expect": [
+   [
+    "He",
+    "whitmore"
+   ]
+  ]
+ },
+ {
+  "case": 1,
+  "text": "Eleanor looked at Richard. She assumed he had the emerald.",
+  "speaker": null,
+  "expect": [
+   [
+    "She",
+    "eleanor"
+   ],
+   [
+    "he",
+    "richard"
+   ]
+  ]
+ },
+ {
+  "case": 1,
+  "text": "I called twice for a footman.",
+  "speaker": "clara",
+  "expect": [
+   [
+    "I",
+    "clara"
+   ]
+  ]
+ },
+ {
+  "case": 4,
+  "text": "The stout gentleman stood up. He took the old gentleman's arm.",
+  "speaker": null,
+  "expect": [
+   [
+    "He",
+    "bennett"
+   ]
+  ]
+ },
+ {
+  "case": 6,
+  "text": "Lady Margaret spoke to Mr. Hale. She said he was mistaken.",
+  "speaker": null,
+  "expect": [
+   [
+    "She",
+    "margaret"
+   ],
+   [
+    "he",
+    "hale"
+   ]
+  ]
+ },
+ {
+  "case": 3,
+  "text": "Miss Grey went to the library. She bolted the door.",
+  "speaker": null,
+  "expect": [
+   [
+    "She",
+    "grey"
+   ]
+  ]
+ },
+ {
+  "case": 5,
+  "text": "Mary spoke to Mr. Pemberton. He refused her.",
+  "speaker": null,
+  "expect": [
+   [
+    "He",
+    "josiah-pemberton"
+   ]
+  ]
+ },
+ {
+  "case": 2,
+  "text": "Mr. Blake called at the house. He asked after Mr. Blackwood.",
+  "speaker": null,
+  "expect": [
+   [
+    "He",
+    "blake"
+   ]
+  ]
+ },
+ {
+  "case": 7,
+  "text": "Mrs. Reed signed the register. She wore a veil.",
+  "speaker": null,
+  "expect": [
+   [
+    "She",
+    "reed"
+   ]
+  ]
+ },
+ {
+  "case": 3,
+  "text": "Dr. Moore saw Carter in the library. He was putting away the case.",
+  "speaker": null,
+  "expect": [
+   [
+    "He",
+    "carter"
+   ]
+  ]
+ }
+]
