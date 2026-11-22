@@ -1,0 +1,31 @@
+{% extends "base.html" %}{% load mystiq %}
+{% block body %}
+<section class="hero" id="main">{% hero_art %}
+ <div class="wrap"><div class="copy">
+  <p class="kicker"><b>London · 1891</b> &nbsp;/&nbsp; Seven mysteries &nbsp;/&nbsp; One truth each</p>
+  <h1 class="logo">MYSTIQ</h1>
+  <p class="tag">Every clue hides a <em>truth.</em></p>
+  <p class="lede">Fog-bound streets, locked libraries and letters that arrive at midnight. Read the statements, test the alibis, and let language itself betray the liar. Dr. Watson waits at your elbow.</p>
+  <div class="row">
+   {% if user.is_authenticated %}<a class="btn" href="{% url 'dashboard' %}">Open the casebook {% icon "arrow" %}</a>{% else %}<a class="btn" href="{% url 'register' %}">Start investigating {% icon "arrow" %}</a><a class="btn ghost" href="{% url 'login' %}">Login</a>{% endif %}
+   <a class="btn ghost" href="{% url 'how_to_play' %}">How to play</a></div>
+  <div class="meta"><div><b>{{ case_count }}</b>cases</div><div><b>8</b>NLP instruments</div><div><b>3</b>hints per case</div></div>
+ </div></div></section>
+
+<main class="wrap" style="padding-top:0">
+ <div class="sec-head"><div><p class="kicker">The casebook</p><h2>Seven cases. Seven worlds.</h2></div><p class="muted" style="max-width:42ch;margin:0">Every case has its own palette, artwork and atmosphere — one consistent system underneath.</p></div>
+ <div class="worlds">{% for n in "1234567" %}<a class="poster" data-case="{{ n }}" href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'register' %}{% endif %}">{% case_art n %}<div class="pt"><div class="n">{{ n|add:0|roman }}</div><p class="lbl" style="margin:0">{{ n|add:0|theme|get_item:'name' }}</p></div></a>{% endfor %}</div>
+
+ <div class="sec-head"><div><p class="kicker">The instruments</p><h2>Language is evidence.</h2></div><p class="muted" style="max-width:42ch;margin:0">Eight NLP techniques, each with its own colour and icon — you will recognise them everywhere in the investigation room.</p></div>
+ <div class="grid g4">{% instruments as ins %}{% for key,name,tech,desc in ins %}<div class="ins-card" data-ins="{{ key }}"><div class="ico">{% icon key %}</div><div class="tech">{{ tech }}</div><h4>{{ name }}</h4><p>{{ desc }}</p></div>{% endfor %}</div>
+
+ <div class="sec-head"><div><p class="kicker">How a case runs</p><h2>From briefing to verdict.</h2></div></div>
+ <div class="steps">
+  <div class="step"><div class="no">01</div><h4>Read the briefing</h4><p>A story, an objective and four or five persons of interest.</p></div>
+  <div class="step"><div class="no">02</div><h4>Work the evidence room</h4><p>Documents, statements, a living timeline and suspect interrogations.</p></div>
+  <div class="step"><div class="no">03</div><h4>Make your deduction</h4><p>Name the culprit, the method, the time — and prove it from the documents.</p></div>
+  <div class="step"><div class="no">04</div><h4>Hear the verdict</h4><p>See what really happened, and what you missed along the way.</p></div></div>
+ <div class="cta" style="margin-top:var(--s8)"><p class="kicker">Your first case awaits</p><h2>The Missing Emerald</h2><p class="lede" style="margin:0 auto var(--s5)">A priceless stone vanishes from a locked study during a private dinner.</p>
+  <a class="btn" href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'register' %}{% endif %}">Begin {% icon "arrow" %}</a></div>
+</main>
+{% endblock %}

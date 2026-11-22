@@ -1,0 +1,30 @@
+{% load static mystiq %}<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}MYSTIQ — Every clue hides a truth{% endblock %}</title>
+<meta name="csrf" content="{{ csrf_token }}"><meta name="theme-color" content="#0b0c10">
+<link rel="preload" href="{% static 'fonts/cormorant-garamond-latin-600-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{% static 'css/mystiq.css' %}">{% block head %}{% endblock %}</head>
+<body {% block bodyattrs %}{% endblock %}>
+{% include "partials_icons.html" %}
+<a class="skip" href="#main">Skip to content</a>
+<header class="mast"><div class="wrap">
+  <a class="brand" href="{% url 'landing' %}" aria-label="MYSTIQ home">MYSTIQ<span class="thread"></span></a>
+  <nav aria-label="Main">
+  {% with u=request.resolver_match.url_name %}
+    <a class="nl hide-m {% if u == 'how_to_play' %}on{% endif %}" href="{% url 'how_to_play' %}">How to Play</a>
+    {% if user.is_authenticated %}
+      <a class="nl {% if u == 'dashboard' %}on{% endif %}" href="{% url 'dashboard' %}">Casebook</a>
+      <a class="nl hide-m {% if u == 'final_report' %}on{% endif %}" href="{% url 'final_report' %}">Detective Report</a>
+      <a class="userchip" href="{% url 'profile' %}"><span class="av">{{ user.profile.display_name|default:user.username|slice:":1"|upper }}</span><span class="hide-m">{{ user.profile.display_name|default:user.username }}</span></a>
+      <form method="post" action="{% url 'logout' %}" style="display:inline">{% csrf_token %}<button class="btn ghost small">Logout</button></form>
+    {% else %}
+      <a class="nl" href="{% url 'login' %}">Login</a><a class="btn small" href="{% url 'register' %}">Register</a>
+    {% endif %}
+  {% endwith %}
+  </nav></div></header>
+{% block casebar %}{% endblock %}
+{% if messages %}<div class="wrap" style="padding-top:var(--s4)"><ul class="messages">{% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}</ul></div>{% endif %}
+{% block body %}<main id="main" class="wrap">{% block content %}{% endblock %}</main>{% endblock %}
+<footer class="foot"><div class="wrap"><span>MYSTIQ — an NLP-powered detective game. Fictional cases inspired by the classic detective tradition.</span><span class="mono">VICTORIAN LONDON · 1891</span></div></footer>
+{% block scripts %}{% endblock %}
+</body></html>

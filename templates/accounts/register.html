@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Register — MYSTIQ{% endblock %}{% block body %}
+<main id="main" class="auth"><div class="side">{% hero_art %}<div class="q">Seven mysteries. One consulting detective.<small>Your casebook starts empty</small></div></div>
+<div class="form"><div><p class="kicker">New detective</p><h1 style="font-size:3.2rem">Open a casebook</h1>
+<form method="post">{% csrf_token %}{{ form.non_field_errors }}
+ {% for f in form %}<label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}{% if f.errors %}<div class="small" style="color:var(--sig)">{{ f.errors }}</div>{% endif %}{% if f.help_text and f.name != 'password2' %}<div class="muted small">{{ f.help_text|safe }}</div>{% endif %}{% endfor %}
+ <p style="margin-top:var(--s5)"><button class="btn">Open my casebook {% icon "arrow" %}</button></p></form></div></div></main>{% endblock %}

@@ -1,0 +1,1 @@
+Bundled fonts (SIL Open Font License 1.1): Cormorant Garamond (The Cormorant Project Authors), Newsreader (Production Type), IBM Plex Mono (IBM Corp.). Via @fontsource.

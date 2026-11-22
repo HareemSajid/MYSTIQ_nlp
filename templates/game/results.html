@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Results — {{ case.title }}{% endblock %}
+{% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}
+{% block casebar %}{% include "partials_casebar.html" with stage="verdict" %}{% endblock %}
+{% block content %}
+<div class="row" style="justify-content:space-between;align-items:flex-end"><div><p class="kicker">Case {{ case.number|roman }} · <b>The verdict</b></p><h1 style="margin:0">{{ case.title }}</h1></div>
+<div>{% if solved %}<span class="stamp ok">SOLVED</span>{% else %}<span class="stamp bad">UNSOLVED</span>{% endif %}</div></div>
+<div class="reveal"><div class="center"><span class="pframe" style="margin:12px">{% portrait culprit 220 %}</span></div>
+ <div><p class="kicker">The culprit</p><h2>{{ culprit.name }}</h2><p class="lbl" style="margin-bottom:var(--s5)">{{ culprit.role }}</p>
+ <div class="grid g2" style="gap:var(--s5)"><div><p class="kicker">What happened</p><p style="margin:0">{{ solution.what }}</p></div><div><p class="kicker">When</p><p style="margin:0">{{ solution.when }}</p></div></div></div></div>
+<div class="kpis"><div class="kpi"><p class="lbl">Score</p><div class="v">{{ score.points|default:0 }}</div>{% if score and solved %}<div class="small muted mono">base {{ score.base_points }} − hints {{ score.hint_penalty }} − attempts {{ score.attempt_penalty }} − time {{ score.time_penalty }}</div>{% endif %}</div>
+<div class="kpi"><p class="lbl">Time taken</p><div class="v">{{ time_taken|mmss }}</div></div><div class="kpi"><p class="lbl">Hints used</p><div class="v">{{ hints }}</div></div><div class="kpi"><p class="lbl">Attempts</p><div class="v">{{ attempts }}</div></div></div>
+<div class="grid g2" style="margin-top:var(--s7);grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s7)">
+ <div><p class="kicker">Actual sequence of events</p><ol class="seq">{% for s in solution.sequence %}<li>{{ s }}</li>{% endfor %}</ol></div>
+ <div><p class="kicker">The explanation</p><p style="font-size:1.15rem">{{ solution.explanation }}</p><div class="ins-card" data-ins="eval" style="margin-top:var(--s4)"><div class="tech">Key insight</div><p style="color:var(--ink)">{{ solution.insight }}</p></div>
+ {% if evaluation and evaluation.explanation_details %}<p class="small muted" style="margin-top:var(--s4)">{% icon "eval" %} Semantic coverage of the key reasoning steps in your explanation: {{ evaluation.explanation_fraction }}</p>{% endif %}</div></div>
+<div class="sec-head"><div><p class="kicker">Supporting evidence</p><h3 style="margin:0">What proved it</h3></div></div>
+<div class="grid g2" style="gap:10px">{% for d in required %}<div class="doc-row"><div class="dico">{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}</div><div><b>★ {{ d.title }}</b><span class="m">{{ d.doc_type }} · essential</span></div><a class="btn small" href="{% url 'evidence' case.number d.key %}">Open</a></div>{% endfor %}{% for d in related %}<div class="doc-row" style="opacity:.8"><div class="dico">{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}</div><div><b>{{ d.title }}</b><span class="m">{{ d.doc_type }} · related</span></div><a class="btn small ghost" href="{% url 'evidence' case.number d.key %}">Open</a></div>{% endfor %}</div>
+{% if mistakes %}<div class="fail" style="margin-top:var(--s6)"><b style="font-family:var(--display);font-size:1.4rem">Where you went astray</b><ul>{% for m in mistakes %}<li>{{ m }}</li>{% endfor %}</ul></div>{% endif %}
+<p class="row" style="margin-top:var(--s7)">{% if next_case %}<a class="btn" href="{% url 'case_intro' next_case.number %}">Next: {{ next_case.title }} {% icon "arrow" %}</a>{% else %}<a class="btn" href="{% url 'final_report' %}">View your Final Detective Report</a>{% endif %}<a class="btn ghost" href="{% url 'dashboard' %}">Casebook</a></p>
+{% endblock %}

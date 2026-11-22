@@ -1,0 +1,26 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Casebook — MYSTIQ{% endblock %}
+{% block content %}
+<div class="dossier">
+ <div><p class="kicker">Detective dossier · <b>{{ summary.title }}</b></p><h1>The Casebook</h1>
+  <p class="muted" style="margin:0">{{ summary.solved }} of {{ cards|length }} cases solved</p>
+  <div class="segs" role="progressbar" aria-valuemin="0" aria-valuemax="{{ cards|length }}" aria-valuenow="{{ summary.solved }}">{% for c in cards %}<div class="seg {% if c.state == 'solved' %}done{% elif c.state == 'in_progress' %}cur{% endif %}" data-case="{{ c.case.number }}" style="{% if c.state == 'solved' %}background:{{ c.case.number|theme|get_item:'swatches'|slice:'1:2'|first }}{% endif %}" title="Case {{ c.case.number }}"></div>{% endfor %}</div></div>
+ <div class="score"><small>Total score</small>{{ summary.total }}</div></div>
+
+{% if next_card %}<div class="nextmission" data-case="{{ next_card.case.number }}"><div><p class="kicker"><b>Your next mission</b> · Case {{ next_card.case.number|roman }}</p><h2>{{ next_card.case.title }}</h2><p class="lede" style="margin:0">{{ next_card.case.summary }}</p></div>
+<a class="btn glow" href="{% url 'case_intro' next_card.case.number %}">{% if next_card.state == 'in_progress' %}Continue investigation{% else %}Start this case{% endif %} {% icon "arrow" %}</a></div>{% elif summary.master %}<div class="nextmission"><div><h2>All seven cases solved</h2></div><a class="btn glow" href="{% url 'final_report' %}">Open Detective Report</a></div>{% endif %}
+<div class="shelf">{% for c in cards %}{% with t=c.case.number|theme %}
+<article class="cover w{% if forloop.counter == 1 or forloop.counter == 4 %}7{% elif forloop.counter == 2 or forloop.counter == 3 %}5{% elif forloop.counter == 7 %}12{% else %}6{% endif %} {% if not c.unlocked %}locked{% endif %}" data-case="{{ c.case.number }}">
+ {% case_art c.case.number %}
+ <div class="tname"><span class="swatches">{% for s in t.swatches %}<i style="background:{{ s }}"></i>{% endfor %}</span><span class="lbl" style="color:var(--ink)">{{ t.name }}</span></div>
+ <div class="no">{{ c.case.number|roman }}</div>
+ {% if not c.unlocked %}<div class="seal">{% icon "lock" %} SEALED</div>{% endif %}
+ <div class="body">
+  <div class="focus">{% icon t.instrument %} <span>{{ t.focus }}</span></div>
+  <h3>{{ c.case.title }}</h3>
+  <p class="sum">{{ c.case.summary }}</p>
+  <div class="foot2"><div class="row" style="gap:12px"><span class="chip">{{ c.case.difficulty }} &nbsp;<span>{{ c.case.difficulty|pips }}</span></span>
+   {% if c.state == 'solved' %}<span class="badge ok">Solved · {{ c.points }} pts</span>{% elif c.state == 'revealed' %}<span class="badge warn">Revealed</span>{% elif c.state == 'in_progress' %}<span class="badge blue">In progress</span>{% elif c.state == 'locked' %}<span class="badge bad">Locked</span>{% else %}<span class="badge ok">Open</span>{% endif %}</div>
+  {% if c.unlocked %}<a class="btn small" href="{% url 'case_intro' c.case.number %}">{% if c.state == 'solved' %}Review case{% elif c.state == 'in_progress' %}Continue{% else %}Open case file{% endif %} {% icon "arrow" %}</a>{% else %}<span class="muted small">Close the previous case to unlock.</span>{% endif %}</div>
+ </div></article>{% endwith %}{% endfor %}</div>
+{% if summary.master %}<p class="center" style="margin-top:var(--s7)"><a class="btn" href="{% url 'final_report' %}">Claim your Final Detective Report</a></p>{% endif %}
+{% endblock %}

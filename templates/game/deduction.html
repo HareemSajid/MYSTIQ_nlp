@@ -1,0 +1,31 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Final Deduction — {{ case.title }}{% endblock %}
+{% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}
+{% block casebar %}{% include "partials_casebar.html" with stage="deduce" %}{% endblock %}
+{% block content %}
+<p class="kicker">Case {{ case.number|roman }} · attempt {{ attempts|add:1 }} · each extra attempt costs 40 points</p>
+<h1>The Final Deduction</h1><p class="lede" style="margin-bottom:var(--s6)">Name the culprit, reconstruct what happened — and prove it from the documents.</p>
+{% if failed %}<div class="fail"><b style="font-family:var(--display);font-size:1.4rem">The case is not yet proven.</b><ul>{% for f in feedback %}<li>{{ f }}</li>{% endfor %}</ul></div>{% endif %}
+<form method="post" id="dform"><div class="chapters">{% csrf_token %}
+<div>
+<div class="chap"><h3><span class="no">I</span>Who is responsible?</h3><div class="suspect-pick">{% for s in suspects %}<label class="spk"><input type="radio" name="culprit" value="{{ s.key }}" data-name="{{ s.name }}" required {% if posted.culprit == s.key %}checked{% endif %}><span class="pframe" style="margin:6px">{% portrait s 120 %}</span><b>{{ s.name }}</b><span class="r">{{ s.role }}</span></label>{% endfor %}</div></div>
+<div class="chap"><h3><span class="no">II</span>What happened?</h3>{% for o in what_options %}<label class="opt"><input type="radio" name="what" value="{{ o.id }}" required {% if posted.what == o.id %}checked{% endif %}> <span>{{ o.text }}</span></label>{% endfor %}</div>
+<div class="chap"><h3><span class="no">III</span>When did it happen?</h3>{% for o in when_options %}<label class="opt"><input type="radio" name="when" value="{{ o.id }}" required {% if posted.when == o.id %}checked{% endif %}> <span>{{ o.text }}</span></label>{% endfor %}</div>
+<div class="chap"><h3><span class="no">IV</span>Which evidence supports your conclusion?</h3><div class="evpick">{% for d in documents %}<label class="evc"><input type="checkbox" name="evidence" value="{{ d.key }}" {% if d.key in posted.evidence %}checked{% endif %}>{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}<span>{{ d.title }}<small>{{ d.doc_type }}</small></span></label>{% endfor %}</div></div>
+<div class="chap"><h3><span class="no">V</span>What exposed the truth?</h3>{% for o in insight_options %}<label class="opt"><input type="radio" name="insight" value="{{ o.id }}" required {% if posted.insight == o.id %}checked{% endif %}> <span>{{ o.text }}</span></label>{% endfor %}</div>
+<div class="chap"><h3><span class="no">VI</span>Explain your reasoning</h3><textarea name="explanation" maxlength="2500" placeholder="Name the person, and explain how the documents prove it…">{{ posted.explanation }}</textarea>
+<p class="muted small" style="margin-top:8px">{% icon "eval" %} Evaluated by meaning against the protected answer key on the server — you do not need to match any wording.</p></div>
+</div>
+<aside class="verdict-board" aria-live="polite"><p class="kicker"><b>Verdict board</b></p><h3 style="margin:0">Your accusation</h3>
+ <div class="vp" id="vp"><div><span class="lbl">No suspect named yet</span><b>—</b></div></div>
+ <div class="vb-line"><span>Method</span><b id="vb-what">—</b></div><div class="vb-line"><span>Time</span><b id="vb-when">—</b></div><div class="vb-line"><span>Evidence cited</span><b id="vb-ev">0</b></div><div class="vb-line"><span>Insight</span><b id="vb-in">—</b></div><div class="vb-line"><span>Words</span><b id="vb-w">0</b></div>
+ <button class="btn" style="width:100%;justify-content:center;margin-top:var(--s5)">{% icon "gavel" %} Submit deduction</button>
+</aside></div></form>
+<form method="post" action="{% url 'reveal' case.number %}" onsubmit="return confirm('Reveal the solution? You will score 0 for this case.')" style="margin-top:var(--s6)">{% csrf_token %}<button class="btn danger small">Give up and reveal the solution (0 points)</button></form>
+<script>(()=>{const f=document.getElementById('dform'),$=s=>document.querySelector(s);
+const pick=n=>{const c=f.querySelector(`input[name=${n}]:checked`);return c?c.closest('label').querySelector('span:not(.pframe):not(.r)')?.textContent.trim()||c.dataset.name:null};
+function upd(){const c=f.querySelector('input[name=culprit]:checked');
+ if(c){const sv=c.closest('label').querySelector('svg.portrait').cloneNode(true);sv.setAttribute('width',140);sv.setAttribute('height',168);$('#vp').innerHTML='';const w=document.createElement('div');w.className='pframe';w.style.margin='8px';w.appendChild(sv);const b=document.createElement('b');b.textContent=c.dataset.name;const d=document.createElement('div');d.appendChild(w);d.appendChild(b);$('#vp').appendChild(d)}
+ const t=(id,v,n)=>{$(id).textContent=v?(v.length>n?v.slice(0,n)+'…':v):'—'};t('#vb-what',pick('what'),28);t('#vb-when',pick('when'),28);t('#vb-in',pick('insight'),28);
+ $('#vb-ev').textContent=f.querySelectorAll('input[name=evidence]:checked').length;$('#vb-w').textContent=(f.explanation.value.trim().match(/\S+/g)||[]).length}
+f.addEventListener('change',upd);f.addEventListener('input',upd);upd()})();</script>
+{% endblock %}

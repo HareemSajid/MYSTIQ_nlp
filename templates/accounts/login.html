@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Login — MYSTIQ{% endblock %}{% block body %}
+<main id="main" class="auth"><div class="side">{% hero_art %}<div class="q">“You see, but you do not observe.”<small>Chapter one begins when you sign in</small></div></div>
+<div class="form"><div><p class="kicker">Welcome back</p><h1 style="font-size:3.2rem">Detective login</h1>
+<form method="post">{% csrf_token %}{{ form.non_field_errors }}
+ <label for="id_username">Username</label>{{ form.username }}{{ form.username.errors }}
+ <label for="id_password">Password</label>{{ form.password }}{{ form.password.errors }}
+ <input type="hidden" name="next" value="{{ next }}">
+ <p style="margin-top:var(--s5)"><button class="btn">Enter Baker Street {% icon "arrow" %}</button></p></form>
+<p class="muted small">New here? <a href="{% url 'register' %}">Register as a detective</a>.</p></div></div></main>{% endblock %}

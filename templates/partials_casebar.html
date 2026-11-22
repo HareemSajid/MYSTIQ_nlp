@@ -1,0 +1,8 @@
+{% load mystiq %}<div class="casebar"><div class="wrap">
+ <div class="crumbs"><a href="{% url 'dashboard' %}">Casebook</a> / <b>Case {{ case.number|roman }}</b> · {{ case.title }} <span class="swatches" title="{{ case.number|theme|get_item:'name' }}">{% for c in case.number|theme|get_item:'swatches' %}<i style="background:{{ c }}"></i>{% endfor %}</span></div>
+ <div class="stages" aria-label="Case progress">
+  <a href="{% url 'case_intro' case.number %}" class="{% if stage == 'brief' %}on{% endif %}">{% icon "file" %} 01 Briefing</a>
+  <a href="{% url 'investigation' case.number %}" class="{% if stage == 'room' %}on{% endif %}">{% icon "board" %} 02 Investigation</a>
+  <a href="{% url 'deduction' case.number %}" class="{% if stage == 'deduce' %}on{% endif %}">{% icon "gavel" %} 03 Deduction</a>
+  <span class="{% if stage == 'verdict' %}on{% endif %}">{% icon "scale" %} 04 Verdict</span>
+ </div></div></div>

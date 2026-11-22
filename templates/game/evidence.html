@@ -1,0 +1,33 @@
+{% extends "base.html" %}{% load static mystiq %}{% block title %}{{ doc.title }}{% endblock %}
+{% block bodyattrs %}data-case="{{ case.number }}" data-uid="{{ user.id }}"{% endblock %}
+{% block casebar %}{% include "partials_casebar.html" with stage="room" %}{% endblock %}
+{% block content %}{% with k=doc.doc_type|dockind %}
+<p><a class="btn ghost small" href="{% url 'investigation' case.number %}#tab-evidence">← Back to the evidence room</a></p><ol id="doclist" hidden>{% for d in all_docs %}<li data-key="{{ d.key }}" data-url="{% url 'evidence' case.number d.key %}">{{ d.title|truncatechars:28 }}</li>{% endfor %}</ol>
+<div class="viewer">
+<div><article class="sheet k-{{ k }}"><span class="tag">{{ doc.doc_type }}</span>
+ <h2>{{ doc.title }}</h2>
+ <div class="meta"><b>DATE/TIME</b> {{ doc.datetime_text }}<br><b>AUTHOR / SOURCE</b> {{ doc.author }}{% if doc.suspect %}<br><b>RELATED SUSPECT</b> <a href="{% url 'suspect' case.number doc.suspect.key %}">{{ doc.suspect.name }}</a>{% endif %}</div>
+ <div id="doctext"><pre>{{ doc.content }}</pre></div></article>
+ <div class="toolbar"><button class="btn {% if important %}{% else %}ghost{% endif %}" id="imp">{% if important %}★ Marked important{% else %}☆ Mark as Important{% endif %}</button>
+ <button class="btn ghost" id="analyse" data-ins="ner" style="--ins:var(--i-ner)">{% icon "ner" %} Show NLP analysis</button></div>
+ <div id="analysis"></div><div class="docnav" id="docnav"></div></div>
+<aside class="card" style="--ins:var(--i-retrieval);border-top:3px solid var(--i-retrieval)"><p class="kicker" style="color:var(--i-retrieval)">{% icon "retrieval" %} Ask MYSTIQ about this evidence</p><p class="small muted">Answered from this document first, then the whole case.</p>
+ <div class="chat" id="askchat" aria-live="polite"></div><div class="row ask"><input class="grow" type="text" id="askq" maxlength="500" placeholder="Who is mentioned here? What time does this record?"><button class="btn" id="askbtn">Ask</button></div>
+ <p class="kicker" style="margin-top:var(--s6)">Other documents</p>{% for d in all_docs %}{% if d.key != doc.key %}<div class="doc-row" style="margin-bottom:6px;grid-template-columns:34px 1fr"><div class="dico" style="width:34px;height:34px">{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}</div><a href="{% url 'evidence' case.number d.key %}">{{ d.title }}</a></div>{% endif %}{% endfor %}</aside></div>
+{% endwith %}{% endblock %}
+{% block scripts %}<script>window.CASE_NO={{ case.number }};window.DOC_KEY="{{ doc.key }}";</script><script src="{% static 'js/mystiq.js' %}"></script><script src="{% static 'js/mission.js' %}"></script><script>
+(()=>{const N=CASE_NO,$=s=>document.querySelector(s);
+$('#imp').addEventListener('click',async()=>{const r=await MQ.api(`/api/case/${N}/important/`,{doc_key:DOC_KEY});if(!r.error){$('#imp').textContent=r.important?'★ Marked important':'☆ Mark as Important';$('#imp').classList.toggle('ghost',!r.important)}});
+$('#analyse').addEventListener('click',async()=>{const out=$('#analysis');out.innerHTML='<div class="nlp" data-ins="ner"><span class="spinner"></span> Running NER, temporal extraction and coreference…</div>';
+ const r=await MQ.get(`/api/case/${N}/evidence/${DOC_KEY}/analysis/`);if(r.error){out.innerHTML='<div class="nlp">'+MQ.esc(r.error)+'</div>';return}
+ $('#doctext').innerHTML='<pre>'+r.highlighted+'</pre>';
+ const types={PERSON:'var(--e-person)',LOCATION:'var(--e-location)',TIME:'var(--e-time)',DATE:'var(--e-time)',OBJECT:'var(--e-object)',ORGANISATION:'var(--e-org)',OTHER:'var(--e-other)'};
+ let h='<div class="nlp" data-ins="ner"><div class="nh">'+MQ.ico('ner')+'Entity markers · named-entity recognition</div><div class="legend small">'+Object.keys(r.entity_summary).map(k=>`<div><i style="background:${types[k]}"></i><b>${k}</b>: ${r.entity_summary[k].map(MQ.esc).join(', ')}</div>`).join('')+'</div></div>';
+ h+='<div class="nlp" data-ins="time"><div class="nh">'+MQ.ico('time')+'Chronometer · temporal expressions</div><table class="t">'+r.times.map(t=>`<tr><td>${MQ.esc(t.text)}</td><td class="mono">${t.label}</td><td class="muted">${t.precision}${t.ambiguous?' · AM/PM inferred':''}</td></tr>`).join('')+'</table></div>';
+ if(r.coreference.resolved.length)h+='<div class="nlp" data-ins="coref"><div class="nh">'+MQ.ico('coref')+'Red thread · reference resolution</div>'+r.coreference.resolved.map(c=>`“${MQ.esc(c.pronoun)}” → <b>${MQ.esc(c.refers_to)}</b> <span class="muted small">(${c.confidence})</span>`).join('<br>')+'</div>';
+ if(r.stances.length)h+='<div class="nlp" data-ins="stance"><div class="nh">'+MQ.ico('stance')+'Witness lens · how the speaker knows it</div>'+r.stances.map(s=>`<div style="margin:4px 0"><span class="stance ${s.stance}">${MQ.ico(MQ.stanceIcon(s.stance))}${s.stance.replace(/_/g,' ')}</span> <span class="small">${MQ.esc(s.sentence)}</span></div>`).join('')+'</div>';
+ h+=`<div class="small muted mono" style="margin-top:8px">NER ${r.latency_ms.ner} ms · temporal ${r.latency_ms.temporal} ms · coreference ${r.latency_ms.coreference} ms</div>`;out.innerHTML=h;});
+async function ask(){const q=$('#askq').value.trim();if(q.length<3)return;$('#askq').value='';const box=$('#askchat');MQ.addMsg(box,'You',MQ.esc(q),'me');const w=MQ.addMsg(box,'MYSTIQ','<span class="spinner"></span>','them');
+ const r=await MQ.api(`/api/case/${N}/ask/`,{question:q,doc_key:DOC_KEY});w.querySelector('.body').innerHTML=r.error?MQ.esc(r.error):MQ.cited(r.answer,r.citations,N)+MQ.sources(r.citations,N)+`<div class="small muted mono">${r.retrieval.latency_ms} ms · ${r.mode}</div>`}
+$('#askbtn').addEventListener('click',ask);$('#askq').addEventListener('keydown',e=>{if(e.key==='Enter')ask()});})();
+</script>{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Profile — MYSTIQ{% endblock %}{% block content %}
+<p class="kicker">Detective profile</p><h1>{{ user.profile.display_name|default:user.username }}</h1>
+<div class="grid g2"><div class="card"><form method="post">{% csrf_token %}
+<label for="dn">Display name</label><input type="text" id="dn" name="display_name" value="{{ user.profile.display_name }}" maxlength="60">
+<p style="margin-top:var(--s4)"><button class="btn small">Save</button></p></form>
+<p class="muted small mono">Account: {{ user.username }} · member since {{ user.date_joined|date:"j M Y" }}</p></div>
+<div class="card"><p class="kicker">Rank</p><h3>{{ summary.title }}</h3><p>Cases solved: <b>{{ summary.solved }}</b> · Total score: <b>{{ summary.total }}</b></p>
+<a class="btn small" href="{% url 'final_report' %}">View detective report</a></div></div>{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Final Detective Report{% endblock %}
+{% block content %}
+{% if summary.master %}<div class="cert"><p class="kicker"><b>Scotland Yard · Certificate of mastery</b></p><span class="stamp ok">DETECTIVE MASTER</span><p class="lede" style="margin:var(--s5) auto 0">All seven cases are solved. London sleeps safer tonight.</p></div>
+{% else %}<p class="kicker">Detective report</p><h1>Final Detective Report</h1>{% endif %}
+<div class="seals">{% for c in cards %}<div class="sealc {% if c.state != 'solved' %}todo{% endif %}" data-case="{{ c.case.number }}"><div class="disc">{{ c.case.number|roman }}</div><small>{{ c.case.title }}</small></div>{% endfor %}</div>
+<div class="kpis"><div class="kpi"><p class="lbl">Total score</p><div class="v">{{ summary.total }} <small>/ {{ summary.max_possible }}</small></div></div><div class="kpi"><p class="lbl">Cases completed</p><div class="v">{{ summary.solved }} / {{ cards|length }}</div></div><div class="kpi"><p class="lbl">Average time</p><div class="v">{{ summary.avg_time|mmss }}</div></div><div class="kpi"><p class="lbl">Hints used</p><div class="v">{{ summary.hints }}</div></div><div class="kpi"><p class="lbl">Rank</p><div class="v" style="font-size:2rem;line-height:1.1">{{ summary.title }}</div></div></div>
+<div class="card" style="margin-top:var(--s6)"><p class="kicker">Detective performance</p><p style="font-family:var(--display);font-size:1.7rem;font-style:italic;line-height:1.25">{{ text }}</p>
+<table class="t"><tr><th>Case</th><th>Score</th><th>Time</th><th>Hints</th></tr>{% for s in summary.scores %}<tr><td>{{ s.case.number|roman }}. {{ s.case.title }}</td><td>{{ s.points }}</td><td class="mono">{{ s.time_taken|mmss }}</td><td>{{ s.hints_used }}</td></tr>{% empty %}<tr><td colspan="4" class="muted">No cases solved yet.</td></tr>{% endfor %}</table></div>
+{% endblock %}

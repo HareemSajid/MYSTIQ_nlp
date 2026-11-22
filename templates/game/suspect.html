@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}{{ s.name }}{% endblock %}
+{% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}
+{% block casebar %}{% include "partials_casebar.html" with stage="room" %}{% endblock %}
+{% block content %}
+<p class="mono small"><a href="{% url 'investigation' case.number %}#tab-suspects">← Back to the investigation room</a></p>
+<div class="grid" style="grid-template-columns:340px minmax(0,1fr);gap:var(--s7);align-items:start">
+<div class="card center"><span class="pframe" style="margin:14px">{% portrait s 250 %}</span><h2 style="margin:var(--s5) 0 4px">{{ s.name }}</h2><div class="lbl">{{ s.role }} · age {{ s.age }}</div>
+ <p style="margin-top:var(--s5)"><a class="btn" href="{% url 'investigation' case.number %}#tab-interrogation">Interrogate {% icon "arrow" %}</a></p></div>
+<div><div class="grid g2" style="gap:var(--s5)"><div><p class="kicker">Background</p><p>{{ s.background }}</p></div><div><p class="kicker">Relationship with the victim</p><p>{{ s.relationship }}</p></div>
+ <div><p class="kicker">Motive</p><p>{{ s.motive }}</p></div><div><p class="kicker">Known whereabouts</p><p>{{ s.whereabouts }}</p></div></div>
+ <div class="sec-head" style="margin-top:var(--s6)"><h3 style="margin:0">Statements</h3></div>
+ {% for st in statements %}<div class="stmt" style="grid-template-columns:1fr"><div><blockquote>“{{ st.obj.text }}”</blockquote><div class="row" style="gap:10px"><span class="stance {{ st.stance.stance }}">{% with ic=st.stance.stance|stanceicon %}{% icon ic %}{% endwith %} {{ st.stance.stance|nice }}</span>{% if st.obj.document %}<a class="small mono" href="{% url 'evidence' case.number st.obj.document.key %}">source ↗</a>{% endif %}</div></div></div>{% empty %}<p class="muted">No recorded statements.</p>{% endfor %}
+ <div class="sec-head" style="margin-top:var(--s6)"><h3 style="margin:0">Evidence connections</h3></div>
+ {% for d in documents %}<div class="doc-row" style="margin-bottom:8px"><div class="dico">{% with ic=d.doc_type|docicon %}{% icon ic %}{% endwith %}</div><div><b>{{ d.title }}</b><span class="m">{{ d.doc_type }}</span></div><a class="btn small ghost" href="{% url 'evidence' case.number d.key %}">Open</a></div>{% empty %}<p class="muted">No documents are directly attributed to this person.</p>{% endfor %}</div></div>
+{% endblock %}

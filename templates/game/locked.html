@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% load mystiq %}{% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}{% block content %}
+<div class="locked-pane"><div class="seal">{% icon "lock" %}</div><p class="kicker">Case {{ case.number|roman }} · sealed</p><h2>{{ case.title }}</h2>
+<p class="lede" style="margin:0 auto var(--s5)">Scotland Yard will release this file once you have closed the previous case.</p><a class="btn" href="{% url 'dashboard' %}">Back to the casebook</a></div>{% endblock %}

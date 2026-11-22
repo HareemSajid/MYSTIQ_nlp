@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% load mystiq %}{% block title %}Case {{ case.number }} — {{ case.title }}{% endblock %}
+{% block bodyattrs %}data-case="{{ case.number }}"{% endblock %}
+{% block casebar %}{% include "partials_casebar.html" with stage="brief" %}{% endblock %}
+{% block body %}{% with t=case.number|theme %}
+<section class="billboard">{% case_art case.number %}<div class="big-no" aria-hidden="true">{{ case.number|roman }}</div>
+ <div class="wrap"><p class="kicker"><b>{{ t.name }}</b> · {{ case.setting }}</p><h1>{{ case.title }}</h1>
+  <div class="facts"><div class="fact"><span class="lbl">Difficulty</span><div class="v">{{ case.difficulty }} &nbsp;<span style="font-size:.9rem">{{ case.difficulty|pips }}</span></div></div>
+   <div class="fact"><span class="lbl">Documents</span><div class="v">{{ doc_count }}</div></div><div class="fact"><span class="lbl">Persons of interest</span><div class="v">{{ suspects|length }}</div></div>
+   <div class="fact"><span class="lbl">Time</span><div class="v">5–10 min</div></div><div class="fact"><span class="lbl">NLP focus</span><div class="v">{{ t.focus }}</div></div></div></div></section>
+<main id="main" class="wrap">
+ <div class="brief"><div><p class="kicker">The briefing</p><div class="story">{{ case.introduction }}</div></div>
+  <aside><p class="kicker">Your objective</p><div class="objective"><p>{{ case.objective }}</p></div>
+   <div class="ins-card" data-ins="{{ t.instrument }}" style="margin-top:var(--s6)"><div class="ico">{% icon t.instrument %}</div><div class="tech">Lead instrument</div><h4>{{ t.focus }}</h4><p>{{ t.motif }}</p></div></aside></div>
+ <div class="sec-head" style="margin-top:0"><div><p class="kicker">Persons of interest</p><h2>The suspects</h2></div></div>
+ <div class="poi">{% for s in suspects %}<div class="p"><span class="pframe">{% portrait s 170 %}</span><div><h3>{{ s.name }}</h3><div class="role">{{ s.role }}</div></div></div>{% endfor %}</div>
+ <form method="post" action="{% url 'case_start' case.number %}" class="row" style="margin-top:var(--s8)">{% csrf_token %}
+  <button class="btn">{% if progress.started_at %}Return to the investigation room{% else %}Start the investigation{% endif %} {% icon "arrow" %}</button><a class="btn ghost" href="{% url 'dashboard' %}">Casebook</a></form>
+</main>{% endwith %}{% endblock %}
